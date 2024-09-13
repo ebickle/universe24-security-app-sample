@@ -1,0 +1,26 @@
+{
+  "name": "starter_github_app",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "server": "node app.js",
+    "test": "node --test",
+    "lint": "eslint",
+    "coverage": "c8 npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "octokit": "^4.0.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "c8": "^10.1.2",
+    "eslint": "^9.10.0",
+    "globals": "^15.9.0",
+    "sinon": "^19.0.2"
+  }
+}
