@@ -37,8 +37,14 @@ const { data } = await app.octokit.request('/app');
 app.octokit.log.debug(`Authenticated as '${data.name}'`);
 
 // Get an octokit instance authenticated with the organization containing the repository where issues will be created.
-const { data: issueOrgInstallation } = await app.octokit.rest.apps.getOrgInstallation({ org: process.env.ISSUE_ORG });
-const issueOctokit = await app.getInstallationOctokit(issueOrgInstallation.id);
+// To allow the sample to run in either an organization or in a user account, all installations are listed
+// to determine the correct id. In an organization-only setting, calling getOrgInstallation is more efficient.
+const installations = await app.octokit.paginate(app.octokit.rest.apps.listInstallations);
+const issueAccountInstallation = installations.find(i => i.account.login === process.env.ISSUE_ORG);
+if (!issueAccountInstallation) {
+    throw new Error(`A GitHub app installation with the login ${process.env.ISSUE_ORG} could not be found`);
+}
+const issueOctokit = await app.getInstallationOctokit(issueAccountInstallation.id);
 
 // Register event handlers
 app.webhooks.on('code_scanning_alert.closed_by_user', (event) => alertStatusAuthorization.codeScanningAlertClosedByUser({ ...event, issueOctokit }));
