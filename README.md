@@ -52,6 +52,7 @@ The app implements the following sample behaviors:
     | `WEBHOOK_SECRET` | Required | Shared secret for webhooks. Configured in GitHub app settings. |
     | `ISSUE_ORG` | Required | Organization containing repository to create issues in. |
     | `ISSUE_REPO` | Required | Name of repository to create issues in. |
+    | `SECURITY_REVIEWERS` | Required | Comma delimited list of usernames that have access to dismiss security alerts. |
     | `PORT` | Optional | Listening port for server. Defaults to 3000. |
     | `ENTERPRISE_HOSTNAME` | Optional | Hostname of the GitHub Enterprise Server instance. If blank, GitHub Enterprise Cloud will be used. |
 
